@@ -18,6 +18,8 @@ RUN set -ex && \
     apk add musl pcre zlib && \
     rm /var/cache/apk/*
 
+ADD 500.http /opt/vamp/errorfiles/500.http
+ADD 502.http /opt/vamp/errorfiles/502.http
 ADD 503.http /opt/vamp/errorfiles/503.http
 ADD 504.http /opt/vamp/errorfiles/504.http
 
