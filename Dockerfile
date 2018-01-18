@@ -18,6 +18,9 @@ RUN set -ex && \
     apk add musl pcre zlib && \
     rm /var/cache/apk/*
 
+ADD 503.http /opt/vamp/errorfiles/503.http
+ADD 504.http /opt/vamp/errorfiles/504.http
+
 # Add confd tmpl and toml
 ADD confd/*.toml /etc/confd/conf.d/
 ADD confd/*.tmpl /etc/confd/templates/
