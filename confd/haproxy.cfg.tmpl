@@ -45,7 +45,6 @@ frontend http-in
         redirect scheme https if !internal_req  {{$s}}_{{$i}}_{{$s_n}}_host !{ ssl_fc }
         use_backend {{$s}}_{{$i}}_backend if internal_req {{$s}}_{{$i}}_{{$s_n}}_host {{else}}
         use_backend {{$s}}_{{$i}}_backend if {{$s}}_{{$i}}_{{$s_n}}_host{{end}}{{end}}{{end}}{{end}}{{end}}{{end}}
-
 {{range $s, $stack_name := ls "/stacks"}}{{range $i, $service_name := ls (printf "/stacks/%s/services" $stack_name)}}{{ $backend_defined := 0 }}{{if exists (printf "/stacks/%s/services/%s/labels/io.rancher_haproxy.exposed_port" $stack_name $service_name)}}{{if eq $backend_defined 0}}
 
 backend {{$s}}_{{$i}}_backend
