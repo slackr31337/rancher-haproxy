@@ -9,17 +9,16 @@ global
         daemon
 
 defaults
-        log     global
-        mode    tcp
-        option  tcplog
-        option  dontlognull
-        option  redispatch
+        log    global
+        mode   tcp
+        option tcplog
+        option dontlognull
+        option redispatch
         option http-server-close
         option forwardfor
         stats enable
-        stats hide-version
         stats uri /haproxy_stats
-        stats refresh 10s
+        stats refresh 5s
         stats show-node
         retries 3
         timeout connect 5000
