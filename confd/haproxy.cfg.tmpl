@@ -16,6 +16,11 @@ defaults
         option  redispatch
         option http-server-close
         option forwardfor
+        stats enable
+        stats hide-version
+        stats uri /haproxy_stats
+        stats refresh 10s
+        stats show-node
         retries 3
         timeout connect 5000
         timeout client 60000
@@ -27,15 +32,6 @@ defaults
         errorfile 502 /opt/vamp/errorfiles/502.http
         errorfile 503 /opt/vamp/errorfiles/503.http
         errorfile 504 /opt/vamp/errorfiles/504.http
-        
-listen stats
-        bind *:9200
-        mode http
-        stats enable
-        stats hide-version
-        stats uri /haproxy_stats
-        stats refresh 10s
-        stats show-node
         
 frontend http-in
         bind *:80
