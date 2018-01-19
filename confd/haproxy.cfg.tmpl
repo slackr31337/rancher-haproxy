@@ -17,7 +17,7 @@ defaults
         #option http-server-close
         option forwardfor
         option httpchk
-        option httpchk GET / HTTP/1.0
+        option httpchk GET /health_check HTTP/1.0
 	http-check expect rstatus (2|3)[0-9][0-9]
         stats enable
         stats uri /haproxy_stats
@@ -38,7 +38,7 @@ defaults
 frontend http-in
         bind *:80
         mode http
-        default-server inter 4s downinter 8s rise 3 fall 2 slowstart 60s maxconn 1000 maxqueue 32 weight 100
+        default-server port 42 inter 4s downinter 8s rise 3 fall 2 slowstart 60s maxconn 1000 maxqueue 32 weight 100
         acl internal_req src {{getv "/self/container/primary_ip"}}/16
 {{range $s, $stack_name := ls "/stacks"}}{{range $i, $service_name := ls (printf "/stacks/%s/services" $stack_name)}}{{if exists (printf "/stacks/%s/services/%s/labels/io.rancher_haproxy.exposed_port" $stack_name $service_name)}}{{$exposed_port := getv (printf "/stacks/%s/services/%s/labels/io.rancher_haproxy.exposed_port" $stack_name $service_name)}}{{if exists (printf "/stacks/%s/services/%s/labels/io.rancher_haproxy.server_names" $stack_name $service_name)}}{{$service_names := split ( getv (printf "/stacks/%s/services/%s/labels/io.rancher_haproxy.server_names" $stack_name $service_name ) ) "," }}{{range $s_n, $name := $service_names }}
         acl {{$s}}_{{$i}}_{{$s_n}}_host hdr(host) -i {{$name}}{{if exists (printf "/stacks/%s/services/%s/labels/io.rancher_haproxy.force_ssl.%s" $stack_name $service_name $name)}}
