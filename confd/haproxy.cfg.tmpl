@@ -47,3 +47,9 @@ backend {{$s}}_{{$i}}_backend
 
 listen default
   bind *:42
+  
+listen stats
+  bind *:9200
+  stats enable
+  stats hide-version
+  stats uri /
