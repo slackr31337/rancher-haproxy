@@ -5,6 +5,6 @@ Content-Type: text/html
 
 <html>
 <head><meta http-equiv="refresh" content="10"></head>
-<body><center><h1>i-Content: 500 Internal Server Error.</h1>
+<body><center><h1>Error: 500 Internal Server Error.</h1>
 Please standby while we re-try the page.</center>
 </body></html>
