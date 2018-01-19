@@ -27,7 +27,17 @@ defaults
         errorfile 502 /opt/vamp/errorfiles/502.http
         errorfile 503 /opt/vamp/errorfiles/503.http
         errorfile 504 /opt/vamp/errorfiles/504.http
-frontend 1
+        
+listen stats
+        bind *:9200
+        mode http
+        stats enable
+        stats hide-version
+        stats uri /haproxy_stats
+        stats refresh 10s
+        stats show-node
+        
+frontend http-in
         bind *:80
         mode http
         acl internal_req src {{getv "/self/container/primary_ip"}}/16
@@ -38,7 +48,6 @@ frontend 1
         use_backend {{$s}}_{{$i}}_backend if internal_req {{$s}}_{{$i}}_{{$s_n}}_host {{else}}
         use_backend {{$s}}_{{$i}}_backend if {{$s}}_{{$i}}_{{$s_n}}_host{{end}}{{end}}{{end}}{{end}}{{end}}{{end}}
 
-
 {{range $s, $stack_name := ls "/stacks"}}{{range $i, $service_name := ls (printf "/stacks/%s/services" $stack_name)}}{{ $backend_defined := 0 }}{{if exists (printf "/stacks/%s/services/%s/labels/io.rancher_haproxy.exposed_port" $stack_name $service_name)}}{{if eq $backend_defined 0}}
 backend {{$s}}_{{$i}}_backend
    mode http
@@ -48,10 +57,3 @@ backend {{$s}}_{{$i}}_backend
 listen default
         bind *:42
   
-listen stats
-        bind *:9200
-        stats enable
-        stats hide-version
-        stats uri /
-        stats refresh 10s
-        stats show-node
