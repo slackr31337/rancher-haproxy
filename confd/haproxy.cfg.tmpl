@@ -19,6 +19,7 @@ defaults
         option httpchk
         option httpchk GET /health_check HTTP/1.0
 	http-check expect rstatus (2|3)[0-9][0-9]
+	balance leastconn
 	cookie SERVERID insert indirect nocache
         stats enable
         stats uri /haproxy_stats
