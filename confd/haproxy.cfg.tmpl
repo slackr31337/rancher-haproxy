@@ -46,10 +46,12 @@ backend {{$s}}_{{$i}}_backend
    server {{$s}}_{{$container}} {{$ip}}:{{$exposed_port}}{{end}}{{end}}{{end}}{{end}}
 
 listen default
-  bind *:42
+        bind *:42
   
 listen stats
-  bind *:9200
-  stats enable
-  stats hide-version
-  stats uri /
+        bind *:9200
+        stats enable
+        stats hide-version
+        stats uri /
+        stats refresh 10s
+        stats show-node
