@@ -17,6 +17,8 @@ defaults
         #option http-server-close
         option forwardfor
         option httpchk
+        option httpchk GET / HTTP/1.0
+	http-check expect rstatus (2|3)[0-9][0-9]
         stats enable
         stats uri /haproxy_stats
         stats refresh 5s
