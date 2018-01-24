@@ -4,7 +4,7 @@ Connection: close
 Content-Type: text/html
 
 <html>
-<head><meta http-equiv="refresh" content="5"></head>
+<head><meta http-equiv="refresh" content="10"></head>
 <body><center><h1>Error: 503 Service Unavailable</h1>
 The service is not available at this time.</center>
 </body></html>
