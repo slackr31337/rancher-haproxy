@@ -1,6 +1,6 @@
 global
-        log 127.0.0.1 local0
-        log 127.0.0.1 local1 notice
+        log /dev/stderr local0 crit
+        log /dev/stdout local1 info
         maxconn 100000
         maxpipes 1024
         chroot /opt/vamp/chroot
