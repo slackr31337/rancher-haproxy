@@ -4,7 +4,7 @@ Connection: close
 Content-Type: text/html
 
 <html>
-<head><meta http-equiv="refresh" content="5"></head>
+<head><meta http-equiv="refresh" content="10"></head>
 <body><center><h1>Error: 502 Bad Gateway.</h1>
 The server could not connect to the application gateway.</center>
 </body></html>
