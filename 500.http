@@ -1,5 +1,7 @@
-HTTP/1.0 500 Server Error
+HTTP/1.0 303 Moved Temporary
+Location: http://cms.i-evolve.net/500/
 Cache-Control: no-cache
+Expires: Sat, 26 Jul 1997 05:00:00 GMT
 Connection: close
 Content-Type: text/html
 
