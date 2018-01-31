@@ -13,11 +13,11 @@ defaults
         mode   tcp
         option tcplog
         option dontlognull
-	option nolinger
+	#option nolinger
         option redispatch
-        option http-server-close
-	option forceclose
-	no option httpclose
+        #option http-server-close
+	#option forceclose
+	#no option httpclose
         option forwardfor
         option httpchk
         option httpchk GET /health_check HTTP/1.0
