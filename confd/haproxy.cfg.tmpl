@@ -14,7 +14,9 @@ defaults
         option tcplog
         option dontlognull
         option redispatch
-        #option http-server-close
+        option http-server-close
+	option forceclose
+	no option httpclose
         option forwardfor
         option httpchk
         option httpchk GET /health_check HTTP/1.0
@@ -50,8 +52,7 @@ frontend http-in
 {{range $s, $stack_name := ls "/stacks"}}{{range $i, $service_name := ls (printf "/stacks/%s/services" $stack_name)}}{{ $backend_defined := 0 }}{{if exists (printf "/stacks/%s/services/%s/labels/io.rancher_haproxy.exposed_port" $stack_name $service_name)}}{{if eq $backend_defined 0}}
 
 backend {{$s}}_{{$i}}_backend
-   mode http
-{{$backend_defined := 1}}{{end}}{{$exposed_port := getv (printf "/stacks/%s/services/%s/labels/io.rancher_haproxy.exposed_port" $stack_name $service_name)}}{{range $i2, $container := ls (printf "/stacks/%s/services/%s/containers" $stack_name $service_name)}}{{$ip := getv (printf "/stacks/%s/services/%s/containers/%s/primary_ip" $stack_name $service_name $container)}}
+   mode http{{$backend_defined := 1}}{{end}}{{$exposed_port := getv (printf "/stacks/%s/services/%s/labels/io.rancher_haproxy.exposed_port" $stack_name $service_name)}}{{range $i2, $container := ls (printf "/stacks/%s/services/%s/containers" $stack_name $service_name)}}{{$ip := getv (printf "/stacks/%s/services/%s/containers/%s/primary_ip" $stack_name $service_name $container)}}
    server {{$s}}_{{$container}} {{$ip}}:{{$exposed_port}} check cookie {{$container}}{{end}}{{end}}{{end}}{{end}}
 
 listen default
