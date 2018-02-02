@@ -23,7 +23,7 @@ defaults
         option httpchk GET /health_check HTTP/1.0
 	http-check expect rstatus (2|3)[0-9][0-9]
 	balance leastconn
-	cookie SERVERID insert indirect nocache
+	#cookie SERVERID insert indirect nocache
         stats enable
         stats uri /haproxy_stats
         stats refresh 15s
@@ -54,7 +54,7 @@ frontend http-in
 
 backend {{$s}}_{{$i}}_backend
    mode http{{$backend_defined := 1}}{{end}}{{$exposed_port := getv (printf "/stacks/%s/services/%s/labels/io.rancher_haproxy.exposed_port" $stack_name $service_name)}}{{range $i2, $container := ls (printf "/stacks/%s/services/%s/containers" $stack_name $service_name)}}{{$ip := getv (printf "/stacks/%s/services/%s/containers/%s/primary_ip" $stack_name $service_name $container)}}
-   server {{$s}}_{{$container}} {{$ip}}:{{$exposed_port}} check cookie {{$container}}{{end}}{{end}}{{end}}{{end}}
+   server {{$s}}_{{$container}} {{$ip}}:{{$exposed_port}} check{{end}}{{end}}{{end}}{{end}}
 
 listen default
         bind *:42
